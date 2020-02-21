@@ -41,13 +41,14 @@ export default {
       data: {},
       step: 0,
       currentStepData: {},
+      userData: {},
     };
   },
   created() {
-    this.data = require('../assets/input.json');
-  },
-  beforeMount() {
-    this.currentStepData = this.data.items[this.step];
+    this.fakeApi().then((data) => {
+      this.data = data;
+      this.currentStepData = this.data.items[this.step];
+    });
   },
   watch: {
     step() {
@@ -58,11 +59,18 @@ export default {
     passData(data) {
       console.log(data);
     },
+    next() {
+      this.increase();
+      localStorage.setItem();
+    },
     increase() {
       this.step += 1;
     },
     decrease() {
       this.step -= 1;
+    },
+    fakeApi() {
+      return Promise.resolve(require('../assets/input.json'));
     },
   },
 };
