@@ -1,17 +1,17 @@
 <template>
   <div class="cleaning">
-    <h1>{{data.title}}</h1>
+    <h1>{{category.title}}</h1>
     <section>
       <article>
         <h2>{{currentStepData.title}}</h2>
-        <CheckboxComponent @passData="passData" :item="currentStepData"
-                            v-if="currentStepData.formType == 1"/>
-        <RadioComponent @passData="passData" :item="currentStepData"
-                            v-if="currentStepData.formType == 2"/>
-        <TextInputComponent @passData="passData" :item="currentStepData"
-                            v-if="currentStepData.formType == 3"/>
-        <SelectboxComponent @passData="passData" :item="currentStepData"
-                            v-if="currentStepData.formType == 4"/>
+        <CheckboxComponent @passData="passData" :item="currentCategory"
+                            v-if="currentCategory.formType == 1"/>
+        <RadioComponent @passData="passData" :item="currentCategory"
+                            v-if="currentCategory.formType == 2"/>
+        <TextInputComponent @passData="passData" :item="currentCategory"
+                            v-if="currentCategory.formType == 3"/>
+        <SelectboxComponent @passData="passData" :item="currentCategory"
+                            v-if="currentCategory.formType == 4"/>
       </article>
     </section>
     <section>
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import CheckboxComponent from './CheckboxComponent.vue';
 import RadioComponent from './RadioComponent.vue';
 import TextInputComponent from './TextInputComponent.vue';
@@ -38,23 +39,19 @@ export default {
   },
   data() {
     return {
-      data: {},
-      step: 0,
       currentStepData: {},
       userData: {},
     };
   },
   created() {
-    this.fakeApi().then((data) => {
-      this.data = data;
-      this.currentStepData = this.data.items[this.step];
-    });
+    this.$store.dispatch('loadCategory');
+    console.log(this.step);
   },
-  watch: {
-    step() {
-      this.currentStepData = this.data.items[this.step];
-    },
-  },
+  computed: mapState([
+    'category',
+    'step',
+    'currentCategory',
+  ]),
   methods: {
     passData(data) {
       console.log(data);
@@ -68,9 +65,6 @@ export default {
     },
     decrease() {
       this.step -= 1;
-    },
-    fakeApi() {
-      return Promise.resolve(require('../assets/input.json'));
     },
   },
 };
