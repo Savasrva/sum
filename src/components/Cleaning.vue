@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import CheckboxComponent from './CheckboxComponent.vue';
 import RadioComponent from './RadioComponent.vue';
 import TextInputComponent from './TextInputComponent.vue';
@@ -45,13 +45,17 @@ export default {
   },
   created() {
     this.$store.dispatch('loadCategory');
-    console.log(this.step);
   },
-  computed: mapState([
-    'category',
-    'step',
-    'currentCategory',
-  ]),
+  computed: {
+    ...mapState([
+      'category',
+      'step',
+      'currentCategory',
+    ]),
+    ...mapGetters([
+      'currentCategory',
+    ]),
+  },
   methods: {
     passData(data) {
       console.log(data);

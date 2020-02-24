@@ -11,8 +11,8 @@ export default {
   name: 'App',
   components: {
     Cleaning,
-  }
-}
+  },
+};
 </script>
 
 <style>

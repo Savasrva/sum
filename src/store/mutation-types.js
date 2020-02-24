@@ -1,0 +1,4 @@
+export const SAVE_USER_ANSWER = 'SAVE_USER_ANSWER';
+export const UPDATE_USER_ANSWER = 'UPDATE_USER_ANSWER';
+export const UPDATE_STEP = 'UPDATE_STEP';
+export const SAVE_CATEGORY = 'SAVE_CATEGORY';
