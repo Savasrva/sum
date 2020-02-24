@@ -1,7 +1,7 @@
-import { mutations } from '@/store';
+import mutations from '@/store/mutations';
 import * as types from '@/store/mutation-types';
 
-describe('mutations', () => {
+describe('mutations test block', () => {
   it('SAVE_USER_ANSWER', () => {
     const { SAVE_USER_ANSWER } = mutations;
     const state = { userAnswer: {} };

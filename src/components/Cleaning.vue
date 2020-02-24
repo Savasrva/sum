@@ -3,22 +3,14 @@
     <h1>{{category.title}}</h1>
     <section>
       <article>
-        <h2>{{currentStepData.title}}</h2>
-        <CheckboxComponent @passData="passData" :item="currentCategory"
-                            v-if="currentCategory.formType == 1"/>
-        <RadioComponent @passData="passData" :item="currentCategory"
-                            v-if="currentCategory.formType == 2"/>
-        <TextInputComponent @passData="passData" :item="currentCategory"
-                            v-if="currentCategory.formType == 3"/>
-        <SelectboxComponent @passData="passData" :item="currentCategory"
-                            v-if="currentCategory.formType == 4"/>
+        <h2>{{currentCategory.title}}</h2>
+        <CheckboxComponent v-if="currentCategory.formType == 1"/>
+        <RadioComponent v-if="currentCategory.formType == 2"/>
+        <TextInputComponent v-if="currentCategory.formType == 3"/>
+        <SelectboxComponent v-if="currentCategory.formType == 4"/>
       </article>
     </section>
-    <section>
-      <button @click="decrease" class="btn">뒤로</button>
-      <button @click="increase" class="btn">앞으로</button>
-      <button class="btn">제출</button>
-    </section>
+    <ButtonComponent />
   </div>
 </template>
 
@@ -28,6 +20,7 @@ import CheckboxComponent from './CheckboxComponent.vue';
 import RadioComponent from './RadioComponent.vue';
 import TextInputComponent from './TextInputComponent.vue';
 import SelectboxComponent from './SelectboxComponent.vue';
+import ButtonComponent from './ButtonComponent.vue';
 
 export default {
   name: 'Cleaning',
@@ -36,21 +29,17 @@ export default {
     RadioComponent,
     TextInputComponent,
     SelectboxComponent,
+    ButtonComponent,
   },
-  data() {
-    return {
-      currentStepData: {},
-      userData: {},
-    };
-  },
-  created() {
-    this.$store.dispatch('loadCategory');
+  beforeMount() {
+    this.$store.dispatch('loadCategory').then(() => {
+      this.$store.dispatch('loadUserAnswer');
+    });
   },
   computed: {
     ...mapState([
       'category',
       'step',
-      'currentCategory',
     ]),
     ...mapGetters([
       'currentCategory',
@@ -74,7 +63,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
   h1 {
     border-bottom: 1px solid #EEE;
     padding: 0 0 20px 30px;
