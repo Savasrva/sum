@@ -1,14 +1,15 @@
 export default {
   currentCategory: ({ step, category }) => category.items[step],
-  currentCategoryUserAnswer: ({ userAnswer }, { currentCategory }) => {
+  currentUserAnswer: ({ userAnswer }, { currentCategory }) => {
     const answer = userAnswer[currentCategory.itemId];
     const emptyAnswer = currentCategory.formType === 1 ? [] : '';
-    return answer || { itemId: currentCategory.itemId, answer: emptyAnswer };
+    return answer
+      || { itemId: currentCategory.itemId, answer: emptyAnswer };
   },
   isFirst: ({ step }) => step === 0,
   isLast: ({ step, category }) => (step + 1) === category.items.length,
-  hasAnswer: (state, { currentCategoryUserAnswer }) => {
-    const { answer } = currentCategoryUserAnswer;
+  hasAnswer: (state, { currentUserAnswer }) => {
+    const { answer } = currentUserAnswer;
     const flag = Array.isArray(answer);
     return flag ? !!answer.length : !!answer;
   },

@@ -1,22 +1,27 @@
 <template>
   <div>
-    <input v-model="chosenData" name="custom" type="text" />
+    <input @change="updateAnswer" v-model="currentUserAnswer.answer" name="custom" type="text" />
   </div>
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex';
+
 export default {
   name: 'TextInputComponent',
-  props: {
-    item: Object,
+  computed: {
+    ...mapState([
+      'userAnswer',
+    ]),
+    ...mapGetters([
+      'currentCategory',
+      'currentUserAnswer',
+    ]),
   },
-  data() {
-    return {
-      chosenData: '',
-    };
-  },
-  destroyed() {
-    this.$emit('passData', this.chosenData);
+  methods: {
+    updateAnswer() {
+      this.$store.dispatch('updateUserAnswer', this.currentUserAnswer);
+    },
   },
 };
 </script>

@@ -1,7 +1,8 @@
 <template>
  <div>
-   <select v-model="chosenData">
-     <option v-for="option in options" :key="option.id" :value="option.text">
+   <select @change="updateAnswer" v-model="currentUserAnswer.answer">
+     <option disabled value="">옵션을 선택해주세요.</option>
+     <option v-for="option in currentCategory.options" :key="option.id" :value="option.text">
        {{option.text}}
      </option>
    </select>
@@ -9,22 +10,23 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex';
+
 export default {
   name: 'SelectboxComponent',
-  props: {
-    item: Object,
+  computed: {
+    ...mapState([
+      'userAnswer',
+    ]),
+    ...mapGetters([
+      'currentCategory',
+      'currentUserAnswer',
+    ]),
   },
-  data() {
-    return {
-      options: this.item.options.slice(),
-      chosenData: '',
-    };
-  },
-  beforeMount() {
-    this.chosenData = this.options[0].text;
-  },
-  destroyed() {
-    this.$emit('passData', this.chosenData);
+  methods: {
+    updateAnswer() {
+      this.$store.dispatch('updateUserAnswer', this.currentUserAnswer);
+    },
   },
 };
 </script>

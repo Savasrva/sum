@@ -1,26 +1,31 @@
 <template>
   <div>
-    <label v-for="option in options" :key="option.id">
-      <input v-model="chosenData" :value="option.id" type="radio" :name="option.id" />
+    <label v-for="option in currentCategory.options" :key="option.id">
+      <input @change="updateAnswer" v-model="currentUserAnswer.answer" :value="option.text"
+             type="radio" :name="option.id" />
       {{option.text}}
     </label>
   </div>
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex';
+
 export default {
   name: 'SelectboxComponent',
-  props: {
-    item: Object,
+  computed: {
+    ...mapState([
+      'userAnswer',
+    ]),
+    ...mapGetters([
+      'currentCategory',
+      'currentUserAnswer',
+    ]),
   },
-  data() {
-    return {
-      options: this.item.options.slice(),
-      chosenData: [],
-    };
-  },
-  destroyed() {
-    this.$emit('passData', this.chosenData);
+  methods: {
+    updateAnswer() {
+      this.$store.dispatch('updateUserAnswer', this.currentUserAnswer);
+    },
   },
 };
 </script>

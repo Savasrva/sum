@@ -16,6 +16,8 @@ module.exports = {
     'global-require': 0,
     'linebreak-style': 0,
     'no-unused-vars': 0,
+    'no-shadow': 0,
+    'no-alert': 0,
   },
   overrides: [
     {

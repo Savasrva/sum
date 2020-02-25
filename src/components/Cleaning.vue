@@ -45,21 +45,6 @@ export default {
       'currentCategory',
     ]),
   },
-  methods: {
-    passData(data) {
-      console.log(data);
-    },
-    next() {
-      this.increase();
-      localStorage.setItem();
-    },
-    increase() {
-      this.step += 1;
-    },
-    decrease() {
-      this.step -= 1;
-    },
-  },
 };
 </script>
 
@@ -75,6 +60,12 @@ export default {
   section {
     padding: 0 0 30px 30px;
     clear: both;
+  }
+  article {
+    padding: 20px 20px 40px;
+    margin: 0 auto;
+    width: 700px;
+    border: 1px dashed #e0e0e0;
   }
   .btn + .btn {
     margin-left: 5px;
