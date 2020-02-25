@@ -19,7 +19,7 @@ describe('mutations test block', () => {
       },
     };
     SAVE_USER_ANSWER(state, answer);
-    expect(state.userAnswer).toBe(answer);
+    expect(state.userAnswer).toStrictEqual(answer);
   });
 
   it('UPDATE_USER_ANSWER', () => {
@@ -47,7 +47,7 @@ describe('mutations test block', () => {
       ],
     };
     UPDATE_USER_ANSWER(state, answer);
-    expect(state.userAnswer['1']).toBe(answer);
+    expect(state.userAnswer['1']).toStrictEqual(answer);
   });
 
   it('UPDATE_STEP', () => {
@@ -119,6 +119,6 @@ describe('mutations test block', () => {
     };
 
     SAVE_CATEGORY(state, category);
-    expect(state.category).toBe(category);
+    expect(state.category).toStrictEqual(category);
   });
 });

@@ -1,5 +1,5 @@
 <template>
-  <div class="cleaning">
+  <div v-if="category.title" class="cleaning">
     <h1>{{category.title}}</h1>
     <section>
       <article>
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
 import CheckboxComponent from './CheckboxComponent.vue';
 import RadioComponent from './RadioComponent.vue';
 import TextInputComponent from './TextInputComponent.vue';
@@ -31,9 +31,9 @@ export default {
     SelectboxComponent,
     ButtonComponent,
   },
-  beforeMount() {
-    this.$store.dispatch('loadCategory').then(() => {
-      this.$store.dispatch('loadUserAnswer');
+  created() {
+    this.loadCategory().then(() => {
+      this.loadUserAnswer();
     });
   },
   computed: {
@@ -43,6 +43,12 @@ export default {
     ]),
     ...mapGetters([
       'currentCategory',
+    ]),
+  },
+  methods: {
+    ...mapActions([
+      'loadCategory',
+      'loadUserAnswer',
     ]),
   },
 };

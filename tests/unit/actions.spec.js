@@ -29,9 +29,6 @@ describe('actions test block', () => {
   const {
     loadCategory, loadUserAnswer, updateUserAnswerState, updateUserAnswer,
   } = actions;
-  const state = {
-    step: 1,
-  };
   const userAnswer = {
     1: {
       itemId: 1,
@@ -44,6 +41,10 @@ describe('actions test block', () => {
       itemId: 2,
       answer: '30분',
     },
+  };
+  const state = {
+    step: 1,
+    userAnswer,
   };
   const category = {
     formId: 1,
@@ -114,7 +115,7 @@ describe('actions test block', () => {
         '자동청소기',
       ],
     };
-    updateUserAnswerState({ commit }, answer);
+    updateUserAnswerState({ commit, state }, answer);
     expect(state.userAnswer[answer.itemId]).toStrictEqual(answer);
   });
 });

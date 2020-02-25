@@ -2,7 +2,7 @@ import getters from '@/store/getters';
 
 describe('getters test block', () => {
   const {
-    currentCategory, currentCategoryUserAnswer, isFirst, isLast, hasAnswer, answerData,
+    currentCategory, currentUserAnswer, isFirst, isLast, hasAnswer, answerData,
   } = getters;
   const category = {
     formId: 1,
@@ -79,10 +79,10 @@ describe('getters test block', () => {
     expect(category.items.indexOf(item)).toBe(state.step);
   });
 
-  it('currentCategoryUserAnswer', () => {
+  it('currentUserAnswer', () => {
     const currentCategory = category.items[1];
-    const currentAnswer = currentCategoryUserAnswer(state, { currentCategory });
-    expect(currentAnswer).toBe(state.userAnswer[currentCategory.itemId]);
+    const currentAnswer = currentUserAnswer(state, { currentCategory });
+    expect(currentAnswer).toStrictEqual(state.userAnswer[currentCategory.itemId]);
   });
 
   it('isFirst', () => {
@@ -96,23 +96,21 @@ describe('getters test block', () => {
   });
 
   it('hasAnswer', () => {
-    const state = {
-      userAnswer: {
-        1: {
-          itemId: 1,
-          answer: [
-            '스팀청소',
-            '쓰레기 비우기',
-          ],
-        },
-        2: {
-          itemId: 2,
-          answer: '',
-        },
+    const userAnswer = {
+      1: {
+        itemId: 1,
+        answer: [
+          '스팀청소',
+          '쓰레기 비우기',
+        ],
+      },
+      2: {
+        itemId: 2,
+        answer: '',
       },
     };
-    expect(hasAnswer(state, { currentCategory: category.items[1] })).toBe(false);
-    expect(hasAnswer(state, { currentCategory: category.items[0] })).toBe(true);
+    expect(hasAnswer(state, { currentUserAnswer: userAnswer['2'] })).toBe(false);
+    expect(hasAnswer(state, { currentUserAnswer: userAnswer['1'] })).toBe(true);
   });
 
   it('answerData', () => {

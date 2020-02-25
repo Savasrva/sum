@@ -5,7 +5,7 @@ export default {
     state.userAnswer = { ...answer };
   },
   [types.UPDATE_USER_ANSWER](state, answer) {
-    state.userAnswer = { ...state.userAnswer, [answer.itemId]: answer };
+    state.userAnswer = { ...state.userAnswer, [answer.itemId]: { ...answer } };
   },
   [types.UPDATE_STEP](state, payload) {
     state.step = payload;
